@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: import-length-order-with-stars
+        name: Normalize imports by line length + blank line every 5 + prepend ⭐
+        entry: python tools/check_import_length_order.py --fix
+        language: system
+        types: [python]
