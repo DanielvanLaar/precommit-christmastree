@@ -12,7 +12,7 @@ To Install in your repo:
 ```yaml
 repos:
   - repo: https://github.com/DanielvanLaar/precommit-christmastree
-    rev: v1.0.2
+    rev: v1.0.3
     hooks:
       - id: import-length-order-with-stars
         args: ["--fix"]
