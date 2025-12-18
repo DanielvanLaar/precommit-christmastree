@@ -52,18 +52,26 @@ def normalize_block(block_lines: list[str], n: int = 5) -> list[str]:
     """
     Canonical form of an import block:
     - remove all blank lines
+    - ensure __future__ imports stay first
     - sort by line length (Windows-safe)
     - insert a blank line after every n imports
     """
     imports_only = [ln for ln in block_lines if ln.strip() != ""]
 
-    # Windows-safe: rstrip() removes \r\n and trailing spaces, not just \n
-    # Deterministic: enumerate to keep stable order on ties explicitly
-    indexed = list(enumerate(imports_only))
-    indexed_sorted = sorted(indexed, key=lambda t: (len(t[1].rstrip()), t[0]))
-    imports_sorted = [line for _, line in indexed_sorted]
+    def sort_key(line: str) -> tuple[int, int]:
+        clean = line.rstrip()
+        is_future = 0 if clean.startswith("from __future__ import") else 1
+        return (is_future, len(clean))
 
+    indexed = list(enumerate(imports_only))
+    indexed_sorted = sorted(
+        indexed,
+        key=lambda t: (sort_key(t[1]), t[0]),  # stable + deterministic
+    )
+
+    imports_sorted = [line for _, line in indexed_sorted]
     return add_blank_lines_every_n(imports_sorted, n=n)
+
 
 
 MARKER = "#⭐#"

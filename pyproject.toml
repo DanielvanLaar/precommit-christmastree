@@ -4,9 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "precommit-christmastree"
-version = "1.0.2"
+version = "1.0.3"
 description = "Christmas-themed pre-commit hook"
 requires-python = ">=3.8"
 
 [project.scripts]
 import-length-order-with-stars = "christmastree_hook.cli:main"
+
