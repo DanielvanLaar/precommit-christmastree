@@ -1,5 +1,5 @@
 - id: import-length-order-with-stars
   name: Normalize imports by length, group by 5, prepend marker
-  entry: python tools/check_import_length_order.py
-  language: system
+  entry: check-import-length-order
+  language: python
   types: [python]
